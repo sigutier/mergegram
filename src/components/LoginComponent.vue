@@ -51,7 +51,7 @@ export default defineComponent({
         const [firstElement] = codes;
         code.value = `+ ${firstElement.callingCodes[0]}`;
       } catch (error) {
-        //console.log(error.message); ojo poner un mensaje de error
+        console.error(error.message);
       }
     };
     return {
@@ -65,7 +65,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .login {
   background: #212121;
   height: 100vh;
@@ -76,111 +76,108 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
 
-  .container__image {
-    padding-bottom: 10px;
+.container__image {
+  padding-bottom: 10px;
+}
 
-    .image {
-      background: url("/public/logoTelegram.png") no-repeat;
-      background-position: center;
-      background-size: contain;
-      height: 150px;
-      width: 150px;
-    }
-  }
+.image {
+  background: url("/public/logoTelegram.png") no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 150px;
+  width: 150px;
+}
 
-  .description {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.title {
+  margin-top: 15px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
 
-    .title {
-      margin-top: 15px;
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
+.subtitle {
+  text-align: center;
+  margin-top: 7px;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #666666;
+}
 
-    .subtitle {
-      text-align: center;
-      margin-top: 7px;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: #666666;
-    }
-  }
+.container__select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+}
 
-  .container__select {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-top: 15px;
+select {
+  width: 250px;
+  padding: 10px;
+  outline: none;
+  border: none;
+  height: 40px;
+  border-radius: 7px;
+}
 
-    select {
-      width: 250px;
-      padding: 10px;
-      outline: none;
-      border: none;
-      height: 40px;
-      border-radius: 7px;
-    }
-  }
+.container__phone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
+}
+.phoneCode {
+  width: 50px;
+  padding: 10px;
+  padding-right: 0px;
+  outline: none;
+  border: none;
+  height: 20px;
+  text-align: right;
+  border-radius: 7px 0px 0px 7px;
+}
 
-  .container__phone {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-top: 15px;
+.phone {
+  width: 175px;
+  padding: 10px;
+  padding-left: 5px;
+  outline: none;
+  border: none;
+  height: 20px;
+  border-radius: 0px 7px 7px 0px;
+}
 
-    .phoneCode {
-      width: 50px;
-      padding: 10px;
-      padding-right: 0px;
-      outline: none;
-      border: none;
-      height: 20px;
-      text-align: right;
-      border-radius: 7px 0px 0px 7px;
-    }
+.container__button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+.next {
+  text-align: center;
+  width: 250px;
+  padding: 10px;
+  border: none;
+  background: #2ea6da;
+  color: #fff;
+  outline: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
 
-    .phone {
-      width: 175px;
-      padding: 10px;
-      padding-left: 5px;
-      outline: none;
-      border: none;
-      height: 20px;
-      border-radius: 0px 7px 7px 0px;
-    }
-  }
-
-  .container__button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 40px;
-
-    .next {
-      text-align: center;
-      width: 250px;
-      padding: 10px;
-      border: none;
-      background: #2ea6da;
-      color: #fff;
-      outline: none;
-      border-radius: 7px;
-      cursor: pointer;
-    }
-
-    .disabled {
-      background: #cdcdcd;
-      cursor: auto;
-    }
-  }
+.disabled {
+  background: #cdcdcd;
+  cursor: auto;
 }
 </style>
