@@ -24,12 +24,14 @@
       </select>
     </div>
     <div class="container__phone">
-      <input type="text" class="phoneCode" />
-      <input type="text" autofocus class="phone" />
+      <input type="text" class="phoneCode" v-model="code" />
+      <input type="text" autofocus class="phone" v-model="phone" />
     </div>
     <div class="container__button">
       <div id="p-captcha"></div>
-      <button id="sign" class="next">INGRESAR</button>
+      <button id="sign" class="next" @click="loginWithPhoneNumber">
+        INGRESAR
+      </button>
     </div>
   </div>
 </template>
@@ -41,10 +43,12 @@ import IStorage from "@/interfaces/Storage";
 
 export default defineComponent({
   setup() {
-    const Storage = inject<IStorage>("Storage");
-    console.log(Storage?.set("token", "12345"));
     const countries = ref<string>("CL");
     const code = ref<string>("+ 562");
+    const phone = ref<string>("");
+    const Storage = inject<IStorage>("Storage");
+    console.log(Storage?.set("token", "12345"));
+
     const searchCodes = async (): Promise<void> => {
       try {
         const response: any = await fetch(
@@ -58,14 +62,31 @@ export default defineComponent({
       }
     };
 
+    const loginWithPhoneNumber = async (): Promise<void> => {
+      // console.log("123456789");
+      try {
+        const phoneNumber = `${code.value}${phone.value}`;
+        const appVerifier: any = window.recaptchaVerifier;
+        const result = await firebase
+          .auth()
+          .signInWithPhoneNumber(phoneNumber, appVerifier);
+        if (result) {
+          window.confirmationResult = result;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     onMounted(() => {
       // console.log(firebase);
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
         "p-captcha",
         {
           size: "invisible",
-          callback: () => {
+          callback: (response: any) => {
             // reCAPTCHA solved, allow signInWithPhoneNumber.
+            console.log("La respuesta es ", response);
           },
         }
       );
@@ -75,6 +96,7 @@ export default defineComponent({
       countries,
       code,
       searchCodes,
+      loginWithPhoneNumber,
     };
   },
 

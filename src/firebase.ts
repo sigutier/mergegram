@@ -6,6 +6,7 @@ import IFirebase from "@/interfaces/Firebase";
 declare global {
   interface Window {
     recaptchaVerifier: any;
+    confirmationResult: any;
   }
 }
 
