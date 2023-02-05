@@ -86,9 +86,10 @@ export default defineComponent({
 
             // const user = confirmation.user; o bien:
             const { user } = confirmation;
-            console.log(user);
-            Storage.set("refreshToken", user.refreshToken); //TODO: Revisar por qué da error (aunque el login funciona)
-            router.push("/");
+            if (user !== null && user !== undefined) {
+              Storage.set("refreshToken", user.refreshToken);
+              router.push("/");
+            }
           }
         }
       } catch (error) {
@@ -113,6 +114,7 @@ export default defineComponent({
     return {
       countries,
       code,
+      phone,
       searchCodes,
       loginWithPhoneNumber,
     };
