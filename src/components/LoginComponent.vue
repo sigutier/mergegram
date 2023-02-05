@@ -4,12 +4,14 @@
       <div class="image"></div>
     </div>
     <div class="description">
-      <section class="title">Sign in to EDgram</section>
+      <section class="title">Sign in to MERGEgram</section>
       <section class="subtitle">
-        Please confirm your country and <br />enter your phone number.
+        Please select your country and <br />enter your phone number.
+        <!-- //TODO: Quitar el br y ajustar el texto con css -->
       </section>
     </div>
     <div class="container__select">
+      <!-- //TODO: Cambiar los códigos de países por los definitivos + España -->
       <select v-model="countries" @changes="searchCodes">
         <option value="AR">Argentina</option>
         <option value="BO">Bolivia</option>
@@ -83,7 +85,7 @@ export default defineComponent({
 }
 
 .image {
-  background: url("/public/logoTelegram.png") no-repeat;
+  background: url("../assets/logo-mergenarias-round.png") no-repeat;
   background-position: center;
   background-size: contain;
   height: 150px;
