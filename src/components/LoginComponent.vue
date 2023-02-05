@@ -35,7 +35,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref } from "vue";
+import { defineComponent, inject, ref, onMounted } from "vue";
+import firebase from "@/firebase";
 import IStorage from "@/interfaces/Storage";
 
 export default defineComponent({
@@ -56,6 +57,11 @@ export default defineComponent({
         console.error(error.message);
       }
     };
+
+    onMounted(() => {
+      console.log(firebase);
+    });
+
     return {
       countries,
       code,
