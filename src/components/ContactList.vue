@@ -1,39 +1,63 @@
 <template>
   <div class="contacts">
     <ul class="contactList">
+      <li>
+        <img
+          src="https://i.pravatar.cc/150?img=42"
+          alt="avatar"
+          width="65"
+          height="65"
+        />
+        <section class="info">
+          <div class="name">Rebeca</div>
+          <div class="lastMessage">Mi último mensaje</div>
+        </section>
+      </li>
+      <li>
+        <img
+          src="https://i.pravatar.cc/150?img=36"
+          alt="avatar"
+          width="65"
+          height="65"
+        />
+        <section class="info">
+          <div class="name">Silvia</div>
+          <div class="lastMessage">Mi último mensaje</div>
+        </section>
+      </li>
+      <li>
+        <img
+          src="https://i.pravatar.cc/150?img=41"
+          alt="avatar"
+          width="65"
+          height="65"
+        />
+        <section class="info">
+          <div class="name">Beatriz</div>
+          <div class="lastMessage">Mi último mensaje</div>
+        </section>
+      </li>
       <li class="active">
         <img
-          src="https://i.pravatar.cc/150?img=15"
+          src="https://i.pravatar.cc/150?img=47"
           alt="avatar"
           width="65"
           height="65"
         />
         <section class="info">
-          <div class="name">Primo 1</div>
+          <div class="name">Pilar</div>
           <div class="lastMessage">Mi último mensaje</div>
         </section>
       </li>
       <li>
         <img
-          src="https://i.pravatar.cc/150?img=22"
+          src="https://i.pravatar.cc/150?img=29"
           alt="avatar"
           width="65"
           height="65"
         />
         <section class="info">
-          <div class="name">Prima 2</div>
-          <div class="lastMessage">Mi último mensaje</div>
-        </section>
-      </li>
-      <li>
-        <img
-          src="https://i.pravatar.cc/150?img=50"
-          alt="avatar"
-          width="65"
-          height="65"
-        />
-        <section class="info">
-          <div class="name">Tío 3</div>
+          <div class="name">Clara</div>
           <div class="lastMessage">Mi último mensaje</div>
         </section>
       </li>
