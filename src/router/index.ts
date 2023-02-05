@@ -1,6 +1,4 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-// import Home from "@/views/Home.vue";
-// import Login from "@/components/LoginComponent.vue";
 
 // Guion bajo porque no la vamos a usar pero es necesaria
 const beforeEnter = (_to: any, _from: any, next: any) => {
@@ -18,16 +16,14 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Home",
     component: () =>
-      import(/* webpackChunkName: "home" */ "../views/HomeView.vue"),
-    // component: Home,
+      import(/* webpackChunkName: "home" */ "../views/HomeView.vue"), // Lazy loading
     beforeEnter,
   },
   {
     path: "/login",
     name: "Login",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
-    // component: Login,
+      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"), // Lazy loading
   },
   {
     path: "/about",

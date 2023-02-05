@@ -68,9 +68,11 @@ export default defineComponent({
     const loginWithPhoneNumber = async (): Promise<void> => {
       // console.log("123456789");
       try {
+        ////////////////////////////// WARNING //////////////////////////////
         const phoneNumber = "+34"; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
         // const phoneNumber = `${code.value}${phone.value}`;
         // const phoneNumber: string = `+ 34 666 666 666`; Aquí podríamos poner el número de teléfono para no tener que escribirlo cada vez, pero mantengamos nuestra privacidad, que este repo es público
+        /////////////////////////////////////////////////////////////////////
         const appVerifier: any = window.recaptchaVerifier;
         const response = await firebase
           .auth()
@@ -138,7 +140,7 @@ export default defineComponent({
 }
 
 .image {
-  background: url("../assets/logo-mergenarias-round.png") no-repeat;
+  background: url("../../public/logo-mergenarias-round.png") no-repeat;
   background-position: center;
   background-size: contain;
   height: 150px;

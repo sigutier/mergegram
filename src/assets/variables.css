@@ -1,3 +1,8 @@
 :root {
   --fontFamily: "Poppins";
+
+  --backgroundColor: #212121;
+  --fontColorActive: #8774e1;
+  --fontColor: #fff;
+  --backgroundColorMessages: #181818;
 }
