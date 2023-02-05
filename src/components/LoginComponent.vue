@@ -21,6 +21,7 @@
         <option value="EC">Ecuador</option>
         <option value="PY">Paraguay</option>
         <option value="UY">Uruguay</option>
+        <option value="ES">España</option>
       </select>
     </div>
     <div class="container__phone">
@@ -43,8 +44,8 @@ import IStorage from "@/interfaces/Storage";
 
 export default defineComponent({
   setup() {
-    const countries = ref<string>("CL");
-    const code = ref<string>("+ 562");
+    const countries = ref<string>("ES");
+    const code = ref<string>("+ 34");
     const phone = ref<string>("");
     const Storage = inject<IStorage>("Storage");
     console.log(Storage?.set("token", "12345"));
@@ -65,13 +66,23 @@ export default defineComponent({
     const loginWithPhoneNumber = async (): Promise<void> => {
       // console.log("123456789");
       try {
-        const phoneNumber = `${code.value}${phone.value}`;
+        const phoneNumber = "+34 "; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
+        // const phoneNumber = `${code.value}${phone.value}`;
+        // const phoneNumber: string = `+ 34 666 666 666`; Aquí podríamos poner el número de teléfono para no tener que escribirlo cada vez, pero mantengamos nuestra privacidad, que este repo es público
         const appVerifier: any = window.recaptchaVerifier;
-        const result = await firebase
+        const response = await firebase
           .auth()
           .signInWithPhoneNumber(phoneNumber, appVerifier);
-        if (result) {
-          window.confirmationResult = result;
+        if (response) {
+          window.confirmationResult = response;
+          const code = "914766";
+          const confirmation = await response.confirm(code);
+          if (confirmation) {
+            // El usuario se ha logueado correctamente
+            // const user = confirmation.user; o bien:
+            const { user } = confirmation;
+            console.log(user);
+          }
         }
       } catch (error) {
         console.error(error);
