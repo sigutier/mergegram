@@ -1,6 +1,13 @@
 // FYI https://firebase.google.com/docs/web/setup#available-libraries
 import firebase from "firebase/app";
+import "firebase/auth";
 import IFirebase from "@/interfaces/Firebase";
+
+declare global {
+  interface Window {
+    recaptchaVerifier: any;
+  }
+}
 
 // En las SPAs siempre hay un ambiente de desarrollo (dev) y otro de producción (pro), y en éste, la única persona que debería conocer las credenciales es la que lo pondrá en producción. Así que ponemos las variables de entorno en el fichero .env que no se sube al repositorio
 const firebaseConfig: IFirebase = {
@@ -14,8 +21,7 @@ const firebaseConfig: IFirebase = {
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
+firebase.auth().languageCode = "es";
 
 // export default initializeApp(firebaseConfig); o bien:
-export default {
-  firebase,
-};
+export default firebase;

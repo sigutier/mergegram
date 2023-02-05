@@ -28,7 +28,7 @@
       <input type="text" autofocus class="phone" />
     </div>
     <div class="container__button">
-      <div id="sign-container"></div>
+      <div id="p-captcha"></div>
       <button id="sign" class="next">INGRESAR</button>
     </div>
   </div>
@@ -59,7 +59,16 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      console.log(firebase);
+      // console.log(firebase);
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+        "p-captcha",
+        {
+          size: "invisible",
+          callback: () => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+          },
+        }
+      );
     });
 
     return {
@@ -69,7 +78,7 @@ export default defineComponent({
     };
   },
 
-  //API PAISES?
+  //TODO: API de países
 });
 </script>
 
