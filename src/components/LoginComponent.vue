@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import { defineComponent, inject, ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import firebase from "@/firebase";
 import IStorage from "@/interfaces/Storage";
 
@@ -48,7 +49,8 @@ export default defineComponent({
     const code = ref<string>("+ 34");
     const phone = ref<string>("");
     const Storage = inject<IStorage>("Storage");
-    console.log(Storage?.set("token", "12345"));
+    // console.log(Storage?.set("token", "12345"));
+    const router = useRouter();
 
     const searchCodes = async (): Promise<void> => {
       try {
@@ -66,7 +68,7 @@ export default defineComponent({
     const loginWithPhoneNumber = async (): Promise<void> => {
       // console.log("123456789");
       try {
-        const phoneNumber = "+34 "; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
+        const phoneNumber = "+34"; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
         // const phoneNumber = `${code.value}${phone.value}`;
         // const phoneNumber: string = `+ 34 666 666 666`; Aquí podríamos poner el número de teléfono para no tener que escribirlo cada vez, pero mantengamos nuestra privacidad, que este repo es público
         const appVerifier: any = window.recaptchaVerifier;
@@ -78,10 +80,13 @@ export default defineComponent({
           const code = "914766";
           const confirmation = await response.confirm(code);
           if (confirmation) {
-            // El usuario se ha logueado correctamente
+            // ¡El usuario se ha logueado correctamente!
+
             // const user = confirmation.user; o bien:
             const { user } = confirmation;
             console.log(user);
+            Storage.set("refreshToken", user.refreshToken); //TODO: Revisar por qué da error (aunque el login funciona)
+            router.push("/");
           }
         }
       } catch (error) {
