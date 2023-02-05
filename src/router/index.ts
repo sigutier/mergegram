@@ -1,29 +1,49 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router' 
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+// import Home from "@/views/Home.vue";
+// import Login from "@/components/LoginComponent.vue";
+
+// Guion bajo porque no la vamos a usar pero es necesaria
+const beforeEnter = (_to: any, _from: any, next: any) => {
+  const isAuthenticated = window.localStorage.getItem(
+    `${process.env.VUE_APP_SITENAME}_refreshToken`
+  );
+  console.log(isAuthenticated);
+  if (isAuthenticated) next();
+  else next({ name: "Login" });
+  next();
+};
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue')
+    path: "/",
+    name: "Home",
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../views/HomeView.vue"),
+    // component: Home,
+    beforeEnter,
   },
   {
-    path: '/about',
-    name: 'about',
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+    // component: Login,
+  },
+  {
+    path: "/about",
+    name: "About",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"), // Lazy loading
+    beforeEnter,
   },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
-  }
-]
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
