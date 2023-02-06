@@ -20,68 +20,6 @@
         </section>
       </li>
     </ul>
-    <ul class="contactList">
-      <li>
-        <img
-          src="https://i.pravatar.cc/150?img=42"
-          alt="avatar"
-          width="65"
-          height="65"
-        />
-        <section class="info">
-          <div class="name">Rebeca</div>
-          <div class="lastMessage">Mi último mensaje</div>
-        </section>
-      </li>
-      <li>
-        <img
-          src="https://i.pravatar.cc/150?img=36"
-          alt="avatar"
-          width="65"
-          height="65"
-        />
-        <section class="info">
-          <div class="name">Silvia</div>
-          <div class="lastMessage">Mi último mensaje</div>
-        </section>
-      </li>
-      <li>
-        <img
-          src="https://i.pravatar.cc/150?img=41"
-          alt="avatar"
-          width="65"
-          height="65"
-        />
-        <section class="info">
-          <div class="name">Beatriz</div>
-          <div class="lastMessage">Mi último mensaje</div>
-        </section>
-      </li>
-      <li class="active">
-        <img
-          src="https://i.pravatar.cc/150?img=47"
-          alt="avatar"
-          width="65"
-          height="65"
-        />
-        <section class="info">
-          <div class="name">Pilar</div>
-          <div class="lastMessage">Mi último mensaje</div>
-        </section>
-      </li>
-      <li>
-        <img
-          src="https://i.pravatar.cc/150?img=29"
-          alt="avatar"
-          width="65"
-          height="65"
-        />
-        <section class="info">
-          <div class="name">Clara</div>
-          <div class="lastMessage">Mi último mensaje</div>
-        </section>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -100,6 +38,7 @@ export default defineComponent({
 
     const setUserUid = (user: IUser) => {
       store.commit('setUserUid', user.userUid);
+      store.dispatch('getMessages');
     };
 
     onMounted(async () =>{

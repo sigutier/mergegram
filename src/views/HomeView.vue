@@ -5,7 +5,10 @@
       <BrowseInput />
       <ContactList />
     </section>
-    <section class="messages">Mensajes</section>
+    <section class="messages">
+      <MessagesList />
+    </section>
+    <InputMessage/>
   </div>
 </template>
 
@@ -13,10 +16,17 @@
 import { defineComponent } from "vue";
 import BrowseInput from "@/components/BrowseInput.vue";
 import ContactList from "@/components/ContactList.vue";
+import MessagesList from "@/components/Messages/MessageList.vue";
+import InputMessage from '@/components/InputMessage.vue';
 
 export default defineComponent({
   name: "HomeView",
-  components: { BrowseInput, ContactList },
+  components: {
+    BrowseInput,
+    ContactList,
+    MessagesList,
+    InputMessage,
+  },
 });
 </script>
 
