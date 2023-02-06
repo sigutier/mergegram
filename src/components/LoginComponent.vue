@@ -72,7 +72,7 @@
 <script lang="ts">
 import { defineComponent, inject, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import firebase from "@/firebase";
+import { firebase } from "@/firebase";
 import IStorage from "@/interfaces/Storage";
 
 export default defineComponent({

@@ -1,12 +1,13 @@
 // FYI https://firebase.google.com/docs/web/setup#available-libraries
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 import IFirebase from "@/interfaces/Firebase";
 
 declare global {
   interface Window {
-    recaptchaVerifier: any;
-    confirmationResult: any;
+    recaptchaVerifier: any,
+    confirmationResult: any,
   }
 }
 
@@ -24,5 +25,11 @@ const firebaseConfig: IFirebase = {
 firebase.initializeApp(firebaseConfig);
 firebase.auth().languageCode = "es";
 
+// Conectar con la base de datos de Firestore
+const db = firebase.firestore();
+
 // export default initializeApp(firebaseConfig); o bien:
-export default firebase;
+export {
+  firebase,
+  db
+};
