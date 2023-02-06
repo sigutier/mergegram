@@ -15,7 +15,7 @@
       <select v-model="countries" @changes="searchCodes">
         <option value="AR">Argentina</option>
         <option value="BO">Bolivia</option>
-        <option value="BR">Brazil</option>
+        <option value="BR">Brasil</option>
         <option value="CL">Chile</option>
         <option value="CO">Colombia</option>
         <option value="EC">Ecuador</option>
@@ -24,8 +24,40 @@
         <option value="ES">España</option>
       </select>
     </div>
-    <div class="container__phone">
+    <div class="container__phone" v-if="countries === 'ES'">
       <input type="text" class="phoneCode" v-model="code" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'AR'">
+      <input type="text" class="phoneCode" v-model="codeAR" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'BO'">
+      <input type="text" class="phoneCode" v-model="codeBO" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'BR'">
+      <input type="text" class="phoneCode" v-model="codeBR" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'CL'">
+      <input type="text" class="phoneCode" v-model="codeCL" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'CO'">
+      <input type="text" class="phoneCode" v-model="codeCO" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'EC'">
+      <input type="text" class="phoneCode" v-model="codeEC" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'PY'">
+      <input type="text" class="phoneCode" v-model="codePY" />
+      <input type="text" autofocus class="phone" v-model="phone" />
+    </div>
+    <div class="container__phone" v-if="countries === 'UY'">
+      <input type="text" class="phoneCode" v-model="codeUY" />
       <input type="text" autofocus class="phone" v-model="phone" />
     </div>
     <div class="container__button">
@@ -50,6 +82,15 @@ export default defineComponent({
     const phone = ref<string>("");
     const Storage = inject<IStorage>("Storage");
     // console.log(Storage?.set("token", "12345"));
+    const codeAR = ref<string>("+ 54");
+    const codeBR = ref<string>("+ 55");
+    const codeBO = ref<string>("+ 591");
+    const codeCL = ref<string>("+ 56");
+    const codeCO = ref<string>("+ 57");
+    const codeEC = ref<string>("+ 593");
+    const codePY = ref<string>("+ 595");
+    const codeUY = ref<string>("+ 598");
+
     const router = useRouter();
 
     const searchCodes = async (): Promise<void> => {
@@ -117,6 +158,14 @@ export default defineComponent({
       phone,
       searchCodes,
       loginWithPhoneNumber,
+      codeAR,
+      codeBR,
+      codeBO,
+      codeCL,
+      codeCO,
+      codeEC,
+      codePY,
+      codeUY,
     };
   },
 
