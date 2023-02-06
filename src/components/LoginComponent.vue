@@ -87,7 +87,7 @@ export default defineComponent({
             // const user = confirmation.user; o bien:
             const { user } = confirmation;
             if (user !== null && user !== undefined) {
-              Storage.set("refreshToken", user.refreshToken);
+              Storage?.set("refreshToken", user.refreshToken);
               router.push("/");
             }
           }
