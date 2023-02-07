@@ -13,7 +13,7 @@ export default defineComponent({
     props: {
         message: {
             required: true,
-            default: Object as PropType<IMessage>,
+            type: Object as PropType<IMessage>,
         }
     },
     setup(props) {
