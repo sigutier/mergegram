@@ -10,7 +10,7 @@ export default {
           );
           return sKey;
         }
-        console.log("Tu navegador no soporta Local Storage");
+        console.log("Tu navegador no soporta el Local Storage");
         return null;
       },
       set(key: string, value: any): void {
@@ -20,16 +20,14 @@ export default {
             JSON.stringify(value)
           );
         } else {
-          console.warn("Tu navegador no soporta Local Storage");
+          console.warn("Tu navegador no soporta el Local Storage");
         }
       },
-      delete(key: string): void {
+      delete(): void {
         if (window.localStorage) {
-          window.localStorage.removeItem(
-            `${process.env.VUE_APP_SITENAME}_${key}`
-          );
+          window.localStorage.clear();
         } else {
-          console.warn("Tu navegador no soporta Local Storage");
+          console.warn("Tu navegador no soporta el Local Storage");
         }
       },
     };
