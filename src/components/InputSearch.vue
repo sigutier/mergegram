@@ -1,6 +1,6 @@
 <template>
-  <div class="browse">
-    <input class="input" type="text" placeholder="Buscar" />
+  <div class="search">
+    <input type="text" placeholder="Buscar..." class="input-search" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default defineComponent({});
 <style lang="css" scoped>
 @import url("../assets/variables.css");
 
-.input {
+.search input[type=text] {
   padding: 10px;
   width: 90%;
   background: var(--backgroundColorMessages);
@@ -21,7 +21,7 @@ export default defineComponent({});
   outline: none;
   color: var(--fontColor);
 }
-input::placeholder {
+.search input[type=text]::placeholder {
   color: var(--fontColor);
 }
 </style>
