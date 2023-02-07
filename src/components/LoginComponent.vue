@@ -72,6 +72,7 @@
 <script lang="ts">
 import { defineComponent, inject, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from 'vuex';
 import { firebase } from "@/firebase";
 import IStorage from "@/interfaces/Storage";
 
@@ -92,6 +93,7 @@ export default defineComponent({
     const codeUY = ref<string>("+ 598");
 
     const router = useRouter();
+    const store = useStore();
 
     const searchCodes = async (): Promise<void> => {
       try {
@@ -110,7 +112,7 @@ export default defineComponent({
       // console.log("123456789");
       try {
         ////////////////////////////// WARNING //////////////////////////////
-        const phoneNumber = "+34"; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
+        const phoneNumber = ""; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
         // const phoneNumber = `${code.value}${phone.value}`;
         // const phoneNumber: string = `+ 34 666 666 666`; Aquí podríamos poner el número de teléfono para no tener que escribirlo cada vez, pero mantengamos nuestra privacidad, que este repo es público
         /////////////////////////////////////////////////////////////////////
@@ -124,17 +126,17 @@ export default defineComponent({
           const confirmation = await response.confirm(code);
           if (confirmation) {
             // ¡El usuario se ha logueado correctamente!
-
             // const user = confirmation.user; o bien:
             const { user } = confirmation;
             if (user !== null && user !== undefined) {
               Storage?.set("refreshToken", user.refreshToken);
-              router.push("/");
+              store.commit('setLogged', phoneNumber.replace('+ ', ''));
+              router.push('/');
             }
           }
         }
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
       }
     };
 
@@ -205,6 +207,7 @@ export default defineComponent({
   justify-content: center;
   color: #fff;
 }
+
 .title {
   margin-top: 15px;
   font-size: 1.8rem;
@@ -244,6 +247,7 @@ select {
   justify-content: center;
   padding-top: 15px;
 }
+
 .phoneCode {
   width: 50px;
   padding: 10px;
@@ -272,6 +276,7 @@ select {
   justify-content: center;
   margin-top: 40px;
 }
+
 .next {
   text-align: center;
   width: 250px;
