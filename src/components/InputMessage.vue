@@ -26,13 +26,13 @@ export default defineComponent({
         const setEmoji = (emoji: any): void => {
             console.log(emoji);
         }
-        /* cMessage.onSnapshot((snapShot) => {
+        cMessage.onSnapshot((snapShot) => {
             snapShot.docChanges().forEach((change) => {
                 if (change.type === 'added') {
                     store.dispatch('getMessages');
                 }
             });
-        }); */
+        });
 
         const sendMessage = async (): Promise<void> => {
             const tmp = text.value;
