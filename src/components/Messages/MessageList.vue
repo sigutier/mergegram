@@ -31,8 +31,8 @@ export default defineComponent({
 @import "~/src/assets/variables.css";
 
 .container-messages {
-    /* height: calc(100vh - 90px); */
-    height: 90vh;
+    height: calc(100vh - 88px);
+    /* height: 90vh; */
     width: 100%;
     display: flex;
     flex-direction: column;
