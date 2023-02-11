@@ -112,7 +112,7 @@ export default defineComponent({
       // console.log("123456789");
       try {
         ////////////////////////////// WARNING //////////////////////////////
-        const phoneNumber = ""; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
+        const phoneNumber = "+34"; // Introducir un número de teléfono válido -NO COMMITEAR CON ÉL ESCRITO
         // const phoneNumber = `${code.value}${phone.value}`;
         // const phoneNumber: string = `+ 34 666 666 666`; Aquí podríamos poner el número de teléfono para no tener que escribirlo cada vez, pero mantengamos nuestra privacidad, que este repo es público
         /////////////////////////////////////////////////////////////////////
@@ -246,6 +246,15 @@ select {
   align-items: center;
   justify-content: center;
   padding-top: 15px;
+
+}
+
+.container__phone,
+:after,
+:before {
+  box-sizing: content-box !important;
+  border-width: 0;
+  border-color: currentColor;
 }
 
 .phoneCode {
@@ -265,7 +274,7 @@ select {
   padding-left: 5px;
   outline: none;
   border: none;
-  height: 20px;
+  height: 20px !important;
   border-radius: 0px 7px 7px 0px;
 }
 
