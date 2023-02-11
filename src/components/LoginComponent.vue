@@ -204,7 +204,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   color: #fff;
 }
 
@@ -229,33 +229,32 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   padding-top: 15px;
+
 }
 
 select {
-  width: 250px;
+  width: 230px;
   padding: 10px;
   outline: none;
   border: none;
-  height: 40px;
+  height: 20px;
   border-radius: 7px;
 }
 
-.container__phone {
+.container__phone,
+*,
+::after,
+::before {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding-top: 15px;
-
-}
-
-.container__phone,
-:after,
-:before {
   box-sizing: content-box !important;
   border-width: 0;
   border-color: currentColor;
 }
+
 
 .phoneCode {
   width: 50px;
@@ -283,12 +282,11 @@ select {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
 }
 
 .next {
   text-align: center;
-  width: 250px;
+  width: 230px;
   padding: 10px;
   border: none;
   background: #2ea6da;
@@ -296,6 +294,7 @@ select {
   outline: none;
   border-radius: 7px;
   cursor: pointer;
+  margin-top: 40px;
 }
 
 .disabled {
