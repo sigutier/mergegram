@@ -39,4 +39,8 @@ export default defineComponent({
     align-items: flex-end;
     overflow: scroll;
 }
+
+.container-messages::-webkit-scrollbar {
+    display: none;
+}
 </style>
