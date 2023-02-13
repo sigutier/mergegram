@@ -2,13 +2,14 @@ import { createStore } from "vuex";
 import { db } from "@/firebase";
 import IMessage from "@/interfaces/Message";
 import { firebase } from "@/firebase";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
     messages: [] as IMessage[],
     user: {} as firebase.User,
   },
-
+  plugins: [createPersistedState()],
   getters: {},
 
   mutations: {
