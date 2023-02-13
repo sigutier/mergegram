@@ -65,10 +65,10 @@ export default createStore({
 
         const sortedMessages = messages
           .filter((message) => message.date !== null)
-          .sort((a, b) => a.date.seconds - b.date.seconds);
+          .sort((a, b) => b.date.seconds - a.date.seconds);
         const lastMessage = messages.find((message) => message.date === null);
         if (lastMessage) {
-          sortedMessages.push(lastMessage);
+          sortedMessages.unshift(lastMessage);
         }
         commit("setMessages", sortedMessages);
       } catch (error) {

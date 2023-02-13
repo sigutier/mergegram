@@ -4,13 +4,7 @@
       {{ message.text }}
     </span>
     <span class="message-time">
-      {{
-  new Date((message.date?.seconds ?? new Date().getTime() / 1000) * 1000).toLocaleString('es-ES', {
-    timeZone:
-      'Europe/Madrid', hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short', weekday: 'short'
-  })
-      }}
-      <!-- {{ new Date((message.date?.seconds ?? Date.now)).toISOString().slice(11, 16) }} -->
+      {{ getDateString(message.date?.seconds) }}
     </span>
   </div>
 
@@ -29,16 +23,25 @@ export default defineComponent({
     }
   },
   setup(props) {
+
+    const getDateString = (seconds?: number) => {
+      return new Date((seconds ?? new Date().getTime() / 1000) * 1000).toLocaleString('es-ES', {
+        timeZone:
+          'Europe/Madrid', hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short', weekday: 'short'
+      });
+    }
+
     return {
       ...toRefs(props),
+      getDateString
     };
   },
   computed: {
-    alignment: function() {
-        return this.message.isReceiver ? 'message--receiver' : 'message--sender';
+    alignment: function () {
+      return this.message.isReceiver ? 'message--receiver' : 'message--sender';
     }
-}
-  
+  }
+
 });
 
 </script>
@@ -63,6 +66,7 @@ export default defineComponent({
 .message--receiver {
   align-self: flex-start;
 }
+
 .message-time {
   display: flex;
   font-weight: lighter;

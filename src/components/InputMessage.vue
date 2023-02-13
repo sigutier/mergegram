@@ -24,11 +24,10 @@ export default defineComponent({
         const cMessage = db.collection('messages');
 
         const setEmoji = (emoji: any): void => {
-            console.log(emoji);
+            // console.log(emoji);
         }
         cMessage.onSnapshot((snapShot) => {
             snapShot.docChanges().forEach((change) => {
-                console.log(change);
                 if (change.type === 'added') {
                     store.dispatch('getMessages');
                 }
@@ -61,6 +60,7 @@ export default defineComponent({
     display: flex;
     align-items: flex-end;
 }
+
 .emojibutton__active .vue3-discord-emojipicker__emojibutton {
     width: 22px;
 }
