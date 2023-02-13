@@ -1,8 +1,13 @@
 interface Message {
-    userUid: string
-    type: string
-    text: string
-    date: any
+  senderId: string;
+  receiverId: string;
+  type: string;
+  text: string;
+  date: {
+    nanoseconds: number;
+    seconds: number;
+  };
+  isReceiver: boolean;
 }
 
-export default Message
+export default Message;

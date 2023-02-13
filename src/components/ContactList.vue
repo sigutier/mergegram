@@ -5,7 +5,7 @@
         active: loggedPhone === user.userUid}"
       v-for="user in aUsers"
       :key="user.userUid"
-      @click="setUserUid(user)"
+      @click="setRecipientUid(user)"
       >
         <img
           :src="user.photo"
@@ -34,24 +34,25 @@ export default defineComponent({
     const aUsers = ref<IUser[]>([]);
     const cUsers = db.collection('users');
     const store = useStore();
-    const loggedPhone = computed(()=> store.state.userUid);
+    const loggedPhone = computed(()=> store.state.recipientUid);
 
-    const setUserUid = (user: IUser) => {
-      store.commit('setUserUid', user.userUid);
+    const setRecipientUid = (user: IUser) => {
+      store.commit('setRecipientUid', user.userUid);
       store.dispatch('getMessages');
     };
 
     onMounted(async () =>{
-      const querySnapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await cUsers.get();
+      const querySnapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await cUsers.where("userUid", "!=", store.state.user.uid).get();
       querySnapshot.forEach((data: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
         const { 
-          photo, name, userUid, date,
+          photo, name, userUid, date, phoneNumber
         } = data.data();
         aUsers.value.push({
           photo,
           name,
           userUid,
           date,
+          phoneNumber
         });
       });
     });
@@ -59,7 +60,7 @@ export default defineComponent({
     return{
       aUsers,
       loggedPhone,
-      setUserUid
+      setRecipientUid
     };
   },
 });

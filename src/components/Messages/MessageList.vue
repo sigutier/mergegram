@@ -2,7 +2,7 @@
 <template>
     <div class="container-messages">
         Esta es la lista de mensajes de ese usuario.
-        <MessageDetail v-for="message in aMessages" :message="message" :key="message.userUid" />
+        <MessageDetail v-for="message in aMessages" :message="message" :key="message.recipientUid" />
     </div>
 </template>
 
@@ -31,12 +31,11 @@ export default defineComponent({
 @import "~/src/assets/variables.css";
 
 .container-messages {
-    height: calc(100vh - 88px);
+    height: calc(100vh - 104px);
     /* height: 90vh; */
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     overflow: scroll;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="message">
+  <div class="message" v-bind:class="alignment">
     <span>
       {{ message.text }}
     </span>
@@ -33,6 +33,12 @@ export default defineComponent({
       ...toRefs(props),
     };
   },
+  computed: {
+    alignment: function() {
+        return this.message.isReceiver ? 'message--receiver' : 'message--sender';
+    }
+}
+  
 });
 
 </script>
@@ -50,6 +56,13 @@ export default defineComponent({
   margin-right: 10px;
 }
 
+.message--sender {
+  align-self: flex-end;
+}
+
+.message--receiver {
+  align-self: flex-start;
+}
 .message-time {
   display: flex;
   font-weight: lighter;

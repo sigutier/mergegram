@@ -4,7 +4,23 @@
       <div class="image"></div>
     </div>
     <div class="container">
-      <form @submit.prevent="signInButtonPressed" style="flex-direction: column;">
+      <form @submit.prevent="signUpButtonPressed" style="flex-direction: column;">
+        <!-- First and Last Name Row -->
+
+        <label for="" style="color: white;"> First Name:</label>
+        <input class="form-control" placeholder="Enter first name" type="text" v-model="v$.form.firstName.$model">
+        <!-- Error Message -->
+        <div v-for="(error, index) of v$.form.firstName.$errors" :key="index">
+          <div style="color:violet;">{{ error.$message }}</div>
+        </div>
+
+        <label for="" style="color: white;">Last Name:</label>
+        <input class="form-control" placeholder="Enter last name" type="text" v-model="v$.form.lastName.$model">
+        <!-- Error Message -->
+        <div v-for="(error, index) of v$.form.lastName.$errors" :key="index">
+          <div style="color:violet;">{{ error.$message }}</div>
+        </div>
+
 
         <!-- Email Row -->
         <label for="" style="color: white;"> Email address</label>
@@ -15,7 +31,7 @@
         </div>
 
 
-        <!-- Password and Confirm Password Row -->
+        <!-- Password Row -->
         <label for="" style="color: white;"> Password</label>
         <input class="form-control" placeholder="Password" type="password" v-model="v$.form.password.$model">
         <!-- Error Message -->
@@ -26,11 +42,11 @@
         <!-- Submit Button -->
         <div>
           <button class="btn btn-primary" :disabled="v$.form.$invalid"
-            @click="signIn(router, store, form)">Log-in</button>
+            @click="signUp(router, store, form)">Sign up</button>
         </div>
       </form>
     </div>
-    <router-link to="/signup">Crear una nueva cuanta</router-link>
+    <router-link to="/login">Ya tengo una cuenta, hacer log in</router-link>
 
   </div>
 </template>
@@ -38,10 +54,17 @@
 <script lang="ts">
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, sameAs } from '@vuelidate/validators'
-import { firebase } from "@/firebase";
+import { db, firebase } from "@/firebase";
 import { Router, useRouter } from 'vue-router';
 import { Store, useStore } from 'vuex';
 
+export function validName(name: string) {
+  let validNamePattern = new RegExp("^[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
+  if (validNamePattern.test(name)) {
+    return true;
+  }
+  return false;
+}
 
 
 export default {
@@ -49,12 +72,15 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
+
     return { v$: useVuelidate(), router, store }
   },
 
   data() {
     return {
       form: {
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
       }
@@ -62,22 +88,32 @@ export default {
   },
 
   methods: {
-    signInButtonPressed(e: Event,) {
+    signUpButtonPressed(e: Event,) {
       console.log("Sign In Button Pressed");
       e.preventDefault();
     },
-    async signIn(router: Router, store: Store<any>, form: {
+    async signUp(router: Router, store: Store<any>,form: {
+      firstName: string,
+      lastName: string,
       email: string,
       password: string,
     }) {
       try {
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         const response = await firebase
           .auth()
-          .signInWithEmailAndPassword(form.email, form.password);
-        if (response) {
+          .createUserWithEmailAndPassword(form.email, form.password);
+        if (response && response.user) {
+          await response.user.updateProfile({ displayName: `${form.firstName} ${form.lastName}` });
           window.localStorage.setItem(
-            `${process.env.VUE_APP_SITENAME}_refreshToken`, response.user?.refreshToken ?? ""
+            `${process.env.VUE_APP_SITENAME}_refreshToken`, response.user.refreshToken
           );
+          const dbUsers = db.collection('users');
+          dbUsers.add({
+                userUid: response.user.uid,
+                date: firebase.firestore.FieldValue.serverTimestamp(),
+                name: `${form.firstName} ${form.lastName}`
+            });
           store.commit('setLogged', response.user);
           router.push('/');
         }
@@ -90,8 +126,20 @@ export default {
   validations() {
     return {
       form: {
+        firstName: {
+          required, name_validation: {
+            $validator: validName,
+            $message: 'Invalid Name. Valid name only contain letters, dashes (-) and spaces'
+          }
+        },
+        lastName: {
+          required, name_validation: {
+            $validator: validName,
+            $message: 'Invalid Name. Valid name only contain letters, dashes (-) and spaces'
+          }
+        },
         email: { required, email },
-        password: { required },
+        password: { required, min: minLength(6) },
       },
     }
   },

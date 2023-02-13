@@ -3,6 +3,7 @@ interface User {
     name: string,
     userUid: string,
     date: string,
+    phoneNumber: string
 }
 
 export default User;

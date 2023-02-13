@@ -28,7 +28,7 @@ firebase.auth().languageCode = "es";
 // Conectar con la base de datos de Firestore
 const db = firebase.firestore();
 
-// export default initializeApp(firebaseConfig); o bien:
+// export default setRecipientUid(firebaseConfig); o bien:
 export {
   firebase,
   db
