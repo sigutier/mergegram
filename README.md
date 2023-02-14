@@ -19,7 +19,7 @@ Puedes acceder a los enunciados completos, tanto la versión oficial como nuestr
 ## Vista previa
 
 <div align=center>
-<img src="/src/assets/images/preview.png" alt="preview"  width="300" />
+<img src="/src/assets/images/preview.PNG" alt="preview"  width="300" />
 </div>
 
 ## Ejecución
