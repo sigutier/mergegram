@@ -65,6 +65,10 @@ export default defineComponent({
 
 .message--receiver {
   align-self: flex-start;
+  color: var(--fontColor);
+  background: #462eb7;
+
+
 }
 
 .message-time {
