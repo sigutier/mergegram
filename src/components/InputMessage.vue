@@ -3,7 +3,7 @@
         <!-- <input type="text" v-model="text" @keypress.enter="sendMessage" width="100%"
             placeholder="Escribe tu mensaje..."> -->
         <discord-picker input :value="text" @update:value="text = $event" @emoji="setEmoji"
-            @keypress.enter="sendMessage" />
+            @keyup.enter="sendMessage" />
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default defineComponent({
         const cMessage = db.collection('messages');
 
         const setEmoji = (emoji: any): void => {
-            console.log(emoji);
+            // console.log(emoji);
         }
         cMessage.onSnapshot((snapShot) => {
             snapShot.docChanges().forEach((change) => {
@@ -41,7 +41,8 @@ export default defineComponent({
                 type: 'text',
                 text: tmp,
                 date: firebase.firestore.FieldValue.serverTimestamp(),
-                userUid: store.state.userUid,
+                senderId: store.state.user.uid,
+                receiverId: store.state.recipientUid
             });
         };
 
@@ -53,3 +54,14 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.sendMessage {
+    display: flex;
+    align-items: flex-end;
+}
+
+.emojibutton__active .vue3-discord-emojipicker__emojibutton {
+    width: 22px;
+}
+</style>

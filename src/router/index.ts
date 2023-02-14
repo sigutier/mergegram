@@ -1,3 +1,5 @@
+import firebase from "firebase/app";
+import store from "../store/index";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 // Guion bajo porque no la vamos a usar pero es necesaria
@@ -5,10 +7,10 @@ const beforeEnter = (_to: any, _from: any, next: any) => {
   const isAuthenticated = window.localStorage.getItem(
     `${process.env.VUE_APP_SITENAME}_refreshToken`
   );
-  console.log(isAuthenticated);
-  if (isAuthenticated) next();
+  if (isAuthenticated) {
+    next();
+  }
   else next({ name: "Login" });
-  next();
 };
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,14 +28,10 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "login" */ "../views/LoginView.vue"), // Lazy loading
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/signup",
+    name: "Signup",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"), // Lazy loading
-    beforeEnter,
+      import(/* webpackChunkName: "signup" */ "../views/SignUpView.vue"), // Lazy loading
   },
 ];
 
