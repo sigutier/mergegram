@@ -41,8 +41,8 @@
 
         <!-- Submit Button -->
         <div>
-          <button class="btn btn-primary" :disabled="v$.form.$invalid"
-            @click="signUp(router, store, form)">Sign up</button>
+          <button class="btn btn-primary" :disabled="v$.form.$invalid" @click="signUp(router, store, form)">Sign
+            up</button>
         </div>
       </form>
     </div>
@@ -92,7 +92,7 @@ export default {
       console.log("Sign In Button Pressed");
       e.preventDefault();
     },
-    async signUp(router: Router, store: Store<any>,form: {
+    async signUp(router: Router, store: Store<any>, form: {
       firstName: string,
       lastName: string,
       email: string,
@@ -110,10 +110,12 @@ export default {
           );
           const dbUsers = db.collection('users');
           dbUsers.add({
-                userUid: response.user.uid,
-                date: firebase.firestore.FieldValue.serverTimestamp(),
-                name: `${form.firstName} ${form.lastName}`
-            });
+            userUid: response.user.uid,
+            date: firebase.firestore.FieldValue.serverTimestamp(),
+            name: `${form.firstName} ${form.lastName}`,
+            photo: "https://i.pravatar.cc/",
+
+          });
           store.commit('setLogged', response.user);
           router.push('/');
         }

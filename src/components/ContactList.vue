@@ -118,7 +118,6 @@ export default defineComponent({
           name,
           userUid,
           date,
-          phoneNumber,
           lastMessageDate,
           lastMessageText
         });
@@ -159,6 +158,9 @@ export default defineComponent({
   padding: 0;
   margin: 0;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
 }
 
 li {

@@ -3,9 +3,8 @@ interface User {
     name: string,
     userUid: string,
     date: string,
-    phoneNumber: string,
     lastMessageDate: any,
-    lastMessageText: string
+    lastMessageText: string,
 }
 
 export default User;
