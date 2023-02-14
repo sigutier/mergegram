@@ -18,8 +18,8 @@ import { defineComponent } from "vue";
 import InputSearch from "@/components/InputSearch.vue";
 import ContactList from "@/components/ContactList.vue";
 import MessageList from "@/components/Messages/MessageList.vue";
-import InputMessage from '@/components/InputMessage.vue';
-import LogOut from '@/components/LogOut.vue';
+import InputMessage from "@/components/Messages/InputMessage.vue";
+import LogOut from "@/components/LogOut.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -28,13 +28,13 @@ export default defineComponent({
     ContactList,
     MessageList,
     InputMessage,
-    LogOut
+    LogOut,
   },
 });
 </script>
 
 <style lang="css" scoped>
-@import url("../assets/variables.css");
+@import url("../assets/styles/variables.css");
 
 .home {
   background: var(--backgroundColor);

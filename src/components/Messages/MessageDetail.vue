@@ -7,12 +7,11 @@
       {{ getDateString(message.date?.seconds) }}
     </span>
   </div>
-
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from "vue";
-import IMessage from '@/interfaces/Message';
+import IMessage from "@/interfaces/Message";
 
 export default defineComponent({
   name: "MessageDetail",
@@ -20,38 +19,39 @@ export default defineComponent({
     message: {
       required: true,
       type: Object as PropType<IMessage>,
-    }
+    },
   },
   setup(props) {
-
     const getDateString = (seconds?: number) => {
-      return new Date((seconds ?? new Date().getTime() / 1000) * 1000).toLocaleString('es-ES', {
-        timeZone:
-          'Europe/Madrid', hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short', weekday: 'short'
+      return new Date(
+        (seconds ?? new Date().getTime() / 1000) * 1000
+      ).toLocaleString("es-ES", {
+        timeZone: "Europe/Madrid",
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "numeric",
+        month: "short",
+        weekday: "short",
       });
-    }
+    };
 
     return {
       ...toRefs(props),
-      getDateString
+      getDateString,
     };
   },
   computed: {
     alignment: function () {
-      return this.message.isReceiver ? 'message--receiver' : 'message--sender';
-    }
-  }
-
+      return this.message.isReceiver ? "message--receiver" : "message--sender";
+    },
+  },
 });
-
 </script>
 
 <style lang="css" scoped>
-@import "~/src/assets/variables.css";
+@import url("../../assets/styles/variables.css");
 
 .message {
-  color: var(--fontColor);
-  background: var(--fontColorActive);
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 7px;
@@ -61,14 +61,14 @@ export default defineComponent({
 
 .message--sender {
   align-self: flex-end;
+  color: var(--fontColor);
+  background: var(--assetColorOne);
 }
 
 .message--receiver {
   align-self: flex-start;
   color: var(--fontColor);
-  background: #462eb7;
-
-
+  background: var(--assetColorThree);
 }
 
 .message-time {

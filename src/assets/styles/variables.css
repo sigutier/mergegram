@@ -1,0 +1,23 @@
+/* :root {
+  --fontFamily: "Poppins";
+
+  --backgroundColor: #212121;
+  --fontColorActive: #8774e1;
+  --fontColor: #fff;
+  --backgroundColorMessages: #181818;
+} */
+
+:root {
+  --fontFamily: "Poppins", sans-serif;
+  /* font-family: 'Jost', sans-serif; */
+
+  --backgroundColor: #212121;
+  --backgroundColorMessages: #181818;
+  --fontColor: #f0ffff;
+  --assetColorOne: #4874a8;
+  --assetColorTwo: #4d9cd0;
+  --assetColorThree: #41cbc7;
+  --assetColorFour: #2d0638;
+  --bassetColorFive: #4f406c;
+  --disabledColor: #cdcdcd;
+}

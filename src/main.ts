@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Storage from "./plugins/Storage";
-import "../src/assets/main.css";
+import "../src/assets/styles/main.css";
 // import "../src/assets/variables.css";
 import "@/firebase";
 import "bootstrap/dist/css/bootstrap.min.css";

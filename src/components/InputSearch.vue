@@ -11,9 +11,9 @@ export default defineComponent({});
 </script>
 
 <style lang="css" scoped>
-@import url("../assets/variables.css");
+@import url("../assets/styles/variables.css");
 
-.search input[type=text] {
+.search input[type="text"] {
   padding: 10px;
   width: 90%;
   background: var(--backgroundColorMessages);
@@ -21,7 +21,7 @@ export default defineComponent({});
   outline: none;
   color: var(--fontColor);
 }
-.search input[type=text]::placeholder {
+.search input[type="text"]::placeholder {
   color: var(--fontColor);
 }
 </style>

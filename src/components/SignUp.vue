@@ -4,59 +4,84 @@
       <div class="image"></div>
     </div>
     <div class="container">
-      <form @submit.prevent="signUpButtonPressed" style="flex-direction: column;">
+      <form
+        @submit.prevent="signUpButtonPressed"
+        style="flex-direction: column"
+      >
         <!-- First and Last Name Row -->
 
-        <label for="" style="color: white;"> First Name:</label>
-        <input class="form-control" placeholder="Enter first name" type="text" v-model="v$.form.firstName.$model">
+        <label for="" style="color: white">Nombre</label>
+        <input
+          class="form-control"
+          placeholder="Escribe tu nombre"
+          type="text"
+          v-model="v$.form.firstName.$model"
+        />
         <!-- Error Message -->
         <div v-for="(error, index) of v$.form.firstName.$errors" :key="index">
-          <div style="color:violet;">{{ error.$message }}</div>
+          <div style="color: violet">{{ error.$message }}</div>
         </div>
 
-        <label for="" style="color: white;">Last Name:</label>
-        <input class="form-control" placeholder="Enter last name" type="text" v-model="v$.form.lastName.$model">
+        <label for="" style="color: white">Apellidos</label>
+        <input
+          class="form-control"
+          placeholder="Aquí tus apellidos"
+          type="text"
+          v-model="v$.form.lastName.$model"
+        />
         <!-- Error Message -->
         <div v-for="(error, index) of v$.form.lastName.$errors" :key="index">
-          <div style="color:violet;">{{ error.$message }}</div>
+          <div style="color: violet">{{ error.$message }}</div>
         </div>
-
 
         <!-- Email Row -->
-        <label for="" style="color: white;"> Email address</label>
-        <input class="form-control" placeholder="Enter email" type="email" v-model="v$.form.email.$model">
+        <label for="" style="color: white">Correo electrónico</label>
+        <input
+          class="form-control"
+          placeholder="Introduce tu e-mail"
+          type="email"
+          v-model="v$.form.email.$model"
+        />
         <!-- Error Message -->
         <div v-for="(error, index) of v$.form.email.$errors" :key="index">
-          <div style="color:violet;">{{ error.$message }}</div>
+          <div style="color: violet">{{ error.$message }}</div>
         </div>
 
-
         <!-- Password Row -->
-        <label for="" style="color: white;"> Password</label>
-        <input class="form-control" placeholder="Password" type="password" v-model="v$.form.password.$model">
+        <label for="" style="color: white">Contraseña</label>
+        <input
+          class="form-control"
+          placeholder="Escribe tu contraseña"
+          type="password"
+          v-model="v$.form.password.$model"
+        />
         <!-- Error Message -->
         <div v-for="(error, index) of v$.form.password.$errors" :key="index">
-          <div style="color:violet;">{{ error.$message }}</div>
+          <div style="color: violet">{{ error.$message }}</div>
         </div>
 
         <!-- Submit Button -->
         <div>
-          <button class="btn btn-primary" :disabled="v$.form.$invalid" @click="signUp(router, store, form)">Sign
-            up</button>
+          <button
+            class="next"
+            :disabled="v$.form.$invalid"
+            @click="signUp(router, store, form)"
+          >
+            Regístrate
+          </button>
         </div>
       </form>
     </div>
-    <router-link to="/login">Ya tengo una cuenta, hacer log in</router-link>
-
+    <router-link to="/login">Ya tengo una cuenta, quiero ingresar</router-link>
   </div>
 </template>
 
 <script lang="ts">
-import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, sameAs } from '@vuelidate/validators'
+import useVuelidate from "@vuelidate/core";
+import { required, email, minLength } from "@vuelidate/validators";
 import { db, firebase } from "@/firebase";
-import { Router, useRouter } from 'vue-router';
-import { Store, useStore } from 'vuex';
+import { Router, useRouter } from "vue-router";
+import { Store, useStore } from "vuex";
 
 export function validName(name: string) {
   let validNamePattern = new RegExp("^[a-zA-Z]+(?:[-'\\s][a-zA-Z]+)*$");
@@ -66,89 +91,99 @@ export function validName(name: string) {
   return false;
 }
 
-
 export default {
-
   setup() {
     const router = useRouter();
     const store = useStore();
 
-    return { v$: useVuelidate(), router, store }
+    return { v$: useVuelidate(), router, store };
   },
 
   data() {
     return {
       form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      }
-    }
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      },
+    };
   },
 
   methods: {
-    signUpButtonPressed(e: Event,) {
+    signUpButtonPressed(e: Event) {
       console.log("Sign In Button Pressed");
       e.preventDefault();
     },
-    async signUp(router: Router, store: Store<any>, form: {
-      firstName: string,
-      lastName: string,
-      email: string,
-      password: string,
-    }) {
+    async signUp(
+      router: Router,
+      store: Store<any>,
+      form: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+      }
+    ) {
       try {
-        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        await firebase
+          .auth()
+          .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
         const response = await firebase
           .auth()
           .createUserWithEmailAndPassword(form.email, form.password);
         if (response && response.user) {
-          await response.user.updateProfile({ displayName: `${form.firstName} ${form.lastName}` });
+          await response.user.updateProfile({
+            displayName: `${form.firstName} ${form.lastName}`,
+          });
           window.localStorage.setItem(
-            `${process.env.VUE_APP_SITENAME}_refreshToken`, response.user.refreshToken
+            `${process.env.VUE_APP_SITENAME}_refreshToken`,
+            response.user.refreshToken
           );
-          const dbUsers = db.collection('users');
+          const dbUsers = db.collection("users");
           dbUsers.add({
             userUid: response.user.uid,
             date: firebase.firestore.FieldValue.serverTimestamp(),
             name: `${form.firstName} ${form.lastName}`,
             photo: "https://i.pravatar.cc/",
-
           });
-          store.commit('setLogged', response.user);
-          router.push('/');
+          store.commit("setLogged", response.user);
+          router.push("/");
         }
       } catch (error) {
         alert(error.message);
       }
-    }
+    },
   },
 
   validations() {
     return {
       form: {
         firstName: {
-          required, name_validation: {
+          required,
+          name_validation: {
             $validator: validName,
-            $message: 'Invalid Name. Valid name only contain letters, dashes (-) and spaces'
-          }
+            $message:
+              "Invalid Name. Valid name only contain letters, dashes (-) and spaces",
+          },
         },
         lastName: {
-          required, name_validation: {
+          required,
+          name_validation: {
             $validator: validName,
-            $message: 'Invalid Name. Valid name only contain letters, dashes (-) and spaces'
-          }
+            $message:
+              "Invalid Name. Valid name only contain letters, dashes (-) and spaces",
+          },
         },
         email: { required, email },
         password: { required, min: minLength(6) },
       },
-    }
+    };
   },
-}
+};
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .login {
   background: #212121;
   height: 100vh;
@@ -166,7 +201,7 @@ export default {
 }
 
 .image {
-  background: url("../../public/logo-mergenarias-round.png") no-repeat;
+  background: url("@/assets/images/origami-crane-logo.png") no-repeat;
   background-position: center;
   background-size: contain;
   height: 150px;
@@ -202,7 +237,6 @@ export default {
   align-items: center;
   justify-content: center;
   padding-top: 15px;
-
 }
 
 select {
@@ -227,7 +261,6 @@ select {
   border-width: 0;
   border-color: currentColor;
 }
-
 
 .phoneCode {
   width: 50px;

@@ -4,87 +4,104 @@
       <div class="image"></div>
     </div>
     <div class="container">
-      <form @submit.prevent="signInButtonPressed" style="flex-direction: column;">
-
+      <form
+        @submit.prevent="signInButtonPressed"
+        style="flex-direction: column"
+      >
         <!-- Email Row -->
-        <label for="" style="color: white;"> Email address</label>
-        <input class="form-control" placeholder="Enter email" type="email" v-model="v$.form.email.$model">
+        <label for="" style="color: white">Correo electrónico</label>
+        <input
+          class="form-control"
+          placeholder="Introduce tu e-mail"
+          type="email"
+          v-model="v$.form.email.$model"
+        />
         <!-- Error Message -->
         <div v-for="(error, index) of v$.form.email.$errors" :key="index">
-          <div style="color:violet;">{{ error.$message }}</div>
+          <div style="color: violet">{{ error.$message }}</div>
         </div>
 
-
         <!-- Password and Confirm Password Row -->
-        <label for="" style="color: white;"> Password</label>
-        <input class="form-control" placeholder="Password" type="password" v-model="v$.form.password.$model">
+        <label for="" style="color: white">Contraseña</label>
+        <input
+          class="form-control"
+          placeholder="Escribe tu contraseña"
+          type="password"
+          v-model="v$.form.password.$model"
+        />
         <!-- Error Message -->
         <div v-for="(error, index) of v$.form.password.$errors" :key="index">
-          <div style="color:violet;">{{ error.$message }}</div>
+          <div style="color: violet">{{ error.$message }}</div>
         </div>
 
         <!-- Submit Button -->
         <div>
-          <button class="btn btn-primary" :disabled="v$.form.$invalid"
-            @click="signIn(router, store, form)">Log-in</button>
+          <button
+            class="next"
+            :disabled="v$.form.$invalid"
+            @click="signIn(router, store, form)"
+          >
+            Ingresar
+          </button>
         </div>
       </form>
     </div>
-    <router-link to="/signup">Crear una nueva cuanta</router-link>
-
+    <router-link to="/signup">¿Tu primera vez? Date de alta</router-link>
   </div>
 </template>
 
 <script lang="ts">
-import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, sameAs } from '@vuelidate/validators'
+import useVuelidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
 import { firebase } from "@/firebase";
-import { Router, useRouter } from 'vue-router';
-import { Store, useStore } from 'vuex';
-
-
+import { Router, useRouter } from "vue-router";
+import { Store, useStore } from "vuex";
 
 export default {
-
   setup() {
     const router = useRouter();
     const store = useStore();
-    return { v$: useVuelidate(), router, store }
+    return { v$: useVuelidate(), router, store };
   },
 
   data() {
     return {
       form: {
-        email: '',
-        password: '',
-      }
-    }
+        email: "",
+        password: "",
+      },
+    };
   },
 
   methods: {
-    signInButtonPressed(e: Event,) {
+    signInButtonPressed(e: Event) {
       console.log("Sign In Button Pressed");
       e.preventDefault();
     },
-    async signIn(router: Router, store: Store<any>, form: {
-      email: string,
-      password: string,
-    }) {
+    async signIn(
+      router: Router,
+      store: Store<any>,
+      form: {
+        email: string;
+        password: string;
+      }
+    ) {
       try {
         const response = await firebase
           .auth()
           .signInWithEmailAndPassword(form.email, form.password);
         if (response) {
           window.localStorage.setItem(
-            `${process.env.VUE_APP_SITENAME}_refreshToken`, response.user?.refreshToken ?? ""
+            `${process.env.VUE_APP_SITENAME}_refreshToken`,
+            response.user?.refreshToken ?? ""
           );
-          store.commit('setLogged', response.user);
-          router.push('/');
+          store.commit("setLogged", response.user);
+          router.push("/");
         }
       } catch (error) {
         alert(error.message);
       }
-    }
+    },
   },
 
   validations() {
@@ -93,12 +110,12 @@ export default {
         email: { required, email },
         password: { required },
       },
-    }
+    };
   },
-}
+};
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .login {
   background: #212121;
   height: 100vh;
@@ -116,7 +133,7 @@ export default {
 }
 
 .image {
-  background: url("../../public/logo-mergenarias-round.png") no-repeat;
+  background: url("@/assets/images/origami-crane-logo.png") no-repeat;
   background-position: center;
   background-size: contain;
   height: 150px;
@@ -152,7 +169,6 @@ export default {
   align-items: center;
   justify-content: center;
   padding-top: 15px;
-
 }
 
 select {
@@ -177,7 +193,6 @@ select {
   border-width: 0;
   border-color: currentColor;
 }
-
 
 .phoneCode {
   width: 50px;
