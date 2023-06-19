@@ -86,8 +86,6 @@ Esto creará una carpeta fuera de `src/` llamada `dist/`, donde se almacenarán 
 
 ## Algunos enlaces de interés
 
-★ [Tablero kanban del proyecto](https://github.com/orgs/merge-narias/projects/5/views/1)
-
 [Firebase de Google](https://firebase.google.com/)
 
 [Aprende Git con Bitbucket Cloud](https://www.atlassian.com/es/git/tutorials/learn-git-with-bitbucket-cloud)
