@@ -27,7 +27,7 @@ Puedes acceder a los enunciados completos, tanto la versión oficial como nuestr
 El primer paso para el deploy de la aplicación es tener instalado [Node JS](https://nodejs.org/) y clonarlo utilizando el comando:
 
 ```
-git clone https://github.com/merge-narias/keepcoding-final-boss-mergegram.git
+git clone https://github.com/sigutier/mergegram.git
 ```
 
 Y establecer las dependencias con:
